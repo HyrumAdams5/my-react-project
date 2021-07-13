@@ -5,9 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import axios from 'axios';
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faSignOutAlt, faEdit, faSpinner,} from "@fortawesome/free-solid-svg-icons";
 
 import NavigationContainer from './navigation/navigation-container';
 import Home from './pages/home';
@@ -19,12 +17,13 @@ import PortfolioManager from "./pages/portfolio-manager";
 import PortfolioDetail from "./portfolio/portfolio-detail";
 import Auth from "./pages/auth";
 import NoMatch from "./pages/no-match";
-
-library.add(faTrash, faSignOutAlt, faEdit, faSpinner, );
+import Icons from "../helpers/icons";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    Icons();
 
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN"
@@ -61,10 +60,6 @@ export default class App extends Component {
     }).then(response => {
       const loggedIn = response.data.logged_in;
       const loggedInStatus = this.state.loggedInStatus;
-
-      // If loggedIn and the status = LOGGED_IN => return data
-      // If loggedIn but status = NOT_LOGGED_IN => update state to LOGGED_IN
-      // If not loggedIn and status = LOGGED_IN => update state to NOT_LOGGED_IN
 
       if (loggedIn && loggedInStatus === "LOGGED_IN") {
         return loggedIn;
@@ -120,7 +115,16 @@ export default class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/about-me" component={About} />
           <Route path="/contact" component={Contact} />
-          <Route path="/blog" component={Blog} />
+
+          <Route path="/blog" 
+            render={props => (
+              <Blog 
+              {...props} 
+              loggedInStatus={this.state.loggedInStatus}
+              />
+            )}
+          />
+
           <Route path="/b/:slug" component={BlogDetail} />
           {this.state.loggedInStatus === "LOGGED_IN" ?  this.authorizedPages() : null}
           <Route exact path="/portfolio/:slug" component={PortfolioDetail} />
