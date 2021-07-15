@@ -1,0 +1,23 @@
+.two-columns {
+    grid-template-columns: 1fr 1fr;
+
+    .left-side-image {
+        img {
+            height: 100%;
+            width: revert;
+        }
+    }
+
+    .right-side-content {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .left-side-image img{
+        height: 300px;
+        width: revert;
+    }
+}
