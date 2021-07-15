@@ -50,7 +50,8 @@ class Blog extends Component {
             return;
         }
 
-        if(window.innerHeight + Math.round(document.documentElement.scrollTop) === document.documentElement.offsetHeight) {
+        if(window.innerHeight + Math.round(document.documentElement.scrollTop) >= document.documentElement.offsetHeight) {
+           document.documentElement.scrollTop = window.innerHeight + document.documentElement.offsetHeight;
             this.getBlogItems();
         }
   }
@@ -62,13 +63,16 @@ class Blog extends Component {
       axios
        .get(
           `https://hyrumadams.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`,
-          { withCredentials: true }
+          { withCredentials: true },
+          this.setState({
+            isLoading: true,
+          })
       ).then(response => {
           console.log("getting", response.data);
           this.setState({
+              isLoading: false,
               blogItems: this.state.blogItems.concat(response.data.portfolio_blogs),
               totalCount: response.data.meta.total_records,
-              isLoading: false,
           })
       }).catch(error => {
           console.log("getBlogItems error", error);
@@ -76,7 +80,7 @@ class Blog extends Component {
   }
 
   UNSAFE_componentWillMount() {
-      this. getBlogItems();
+      this.getBlogItems();
   }
 
   componentWillUnmount() {

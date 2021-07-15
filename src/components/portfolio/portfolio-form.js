@@ -190,117 +190,117 @@ export default class POrtfolioForm extends Component {
 
     render() {
         return (
-                <form onSubmit={this.handleSubmit} className="portfolio-form-wrapper">
-                    <div className="two-columns">
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Portfolio Item name"
-                            value={this.state.name}
-                            onChange={this.handleChange} 
-                        />
-                         <input
-                            type="text"
-                            name="url"
-                            placeholder="URL"
-                            value={this.state.url}
-                            onChange={this.handleChange} 
-                        />
-                    </div>
-                    <div className="two-columns">
-                        <input
-                            type="text"
-                            name="position"
-                            placeholder="Position"
-                            value={this.state.position}
-                            onChange={this.handleChange} 
-                        />
-                         <select
-                            className="select-element"
-                            name="category"
-                            value={this.state.category}
-                            onChange={this.handleChange} 
-                        >
-                            <option value="Fun">Fun</option>
-                            <option value="Project">Project</option>
-                            <option value="Board-Game">Board Game</option>
-                        </select>
-                    </div>
-
-                    <div className="one-column">
-                    <textarea
+            <form onSubmit={this.handleSubmit} className="portfolio-form-wrapper">
+                <div className="two-columns">
+                    <input
                         type="text"
-                        name="description"
-                        placeholder="Description"
-                        value={this.state.description}
+                        name="name"
+                        placeholder="Portfolio Item name"
+                        value={this.state.name}
                         onChange={this.handleChange} 
-                        />
+                    />
+                     <input
+                        type="text"
+                        name="url"
+                        placeholder="URL"
+                        value={this.state.url}
+                        onChange={this.handleChange} 
+                    />
+                </div>
+                <div className="two-columns">
+                    <input
+                        type="text"
+                        name="position"
+                        placeholder="Position"
+                        value={this.state.position}
+                        onChange={this.handleChange} 
+                    />
+                     <select
+                        className="select-element"
+                        name="category"
+                        value={this.state.category}
+                        onChange={this.handleChange} 
+                    >
+                        <option value="Fun">Fun</option>
+                        <option value="Project">Project</option>
+                        <option value="Board-Game">Board Game</option>
+                    </select>
+                </div>
 
-                        <div className="image-uploaders">
-                            {this.state.thumb_image_url && this.state.editMode ? ( 
-                                <div className="portfolio-manager-image-wrapper">
-                                    <img src={this.state.thumb_image_url} />
+                <div className="one-column">
+                <textarea
+                    type="text"
+                    name="description"
+                    placeholder="Description"
+                    value={this.state.description}
+                    onChange={this.handleChange} 
+                    />
 
-                                    <div className="image-removal-link">
-                                        <a onClick={() => this.deleteImage("thumb_image")}>Remove file</a>
-                                    </div>
+                    <div className="image-uploaders">
+                        {this.state.thumb_image_url && this.state.editMode ? ( 
+                            <div className="portfolio-manager-image-wrapper">
+                                <img src={this.state.thumb_image_url} />
+
+                                <div className="image-removal-link">
+                                    <a onClick={() => this.deleteImage("thumb_image")}>Remove file</a>
                                 </div>
-                            ) : (
+                            </div>
+                        ) : (
+                        <DropzoneComponent 
+                            ref={this.thumbRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleThumbDrop()}
+                        >
+                            <div className="dz-message">Thumbnail Image</div>
+                        </DropzoneComponent> 
+                        )}
+
+                        {this.state.banner_image_url && this.state.editMode ? ( 
+                            <div className="portfolio-manager-image-wrapper">
+                                <img src={this.state.banner_image_url} />
+
+                                <div className="image-removal-link">
+                                    <a onClick={() => this.deleteImage("banner_image")}>Remove file</a>
+                                </div>
+                            </div>
+                        ) : (
+
                             <DropzoneComponent 
-                                ref={this.thumbRef}
-                                config={this.componentConfig()}
-                                djsConfig={this.djsConfig()}
-                                eventHandlers={this.handleThumbDrop()}
-                            >
-                                <div className="dz-message">Thumbnail Image</div>
-                            </DropzoneComponent> 
-                            )}
+                            ref={this.bannerRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleBannerDrop()}
+                        >
+                            <div className="dz-message">Banner Image</div>
+                        </DropzoneComponent>
+                        )}
 
-                            {this.state.banner_image_url && this.state.editMode ? ( 
-                                <div className="portfolio-manager-image-wrapper">
-                                    <img src={this.state.banner_image_url} />
+                            {this.state.logo_url && this.state.editMode ? ( 
+                            <div className="portfolio-manager-image-wrapper">
+                                <img src={this.state.logo_url} />
 
-                                    <div className="image-removal-link">
-                                        <a onClick={() => this.deleteImage("banner_image")}>Remove file</a>
-                                    </div>
-                                </div>
-                            ) : (
+                               <div className="image-removal-link">
+                                   <a onClick={() => this.deleteImage("logo")}>Remove file</a>
+                               </div>
+                           </div>
+                       ) : (
+                           <DropzoneComponent 
+                           ref={this.logoRef}
+                           config={this.componentConfig()}
+                           djsConfig={this.djsConfig()}
+                           eventHandlers={this.handleLogoDrop()}
+                       >
+                           <div className="dz-message">Logo</div>
+                       </DropzoneComponent>
+                       )}
 
-                                <DropzoneComponent 
-                                ref={this.bannerRef}
-                                config={this.componentConfig()}
-                                djsConfig={this.djsConfig()}
-                                eventHandlers={this.handleBannerDrop()}
-                            >
-                                <div className="dz-message">Banner Image</div>
-                            </DropzoneComponent>
-                            )}
-
-                                {this.state.logo_url && this.state.editMode ? ( 
-                                <div className="portfolio-manager-image-wrapper">
-                                    <img src={this.state.logo_url} />
-
-                                    <div className="image-removal-link">
-                                        <a onClick={() => this.deleteImage("logo")}>Remove file</a>
-                                    </div>
-                                </div>
-                            ) : (
-                                <DropzoneComponent 
-                                ref={this.logoRef}
-                                config={this.componentConfig()}
-                                djsConfig={this.djsConfig()}
-                                eventHandlers={this.handleLogoDrop()}
-                            >
-                                <div className="dz-message">Logo</div>
-                            </DropzoneComponent>
-                            )}
-
-                        </div>
                     </div>
-                    <div>
-                    <button className="btn" type="submit">Save</button>
-                    </div>
-                </form>
+                </div>
+                <div>
+                <button className="btn" type="submit">Save</button>
+                </div>
+            </form>
         )
     }
 }
