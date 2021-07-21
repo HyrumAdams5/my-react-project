@@ -3,14 +3,32 @@
     grid-template-columns: 1fr 1fr;
     height: calc(100vh - 84px);
     background-color: $offwhite;
-}
 
-.left-column {
-    background-size: cover;
-}
 
-.right-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .left-column {
+        background-size: cover;
+    }
+
+    .right-column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .auth-form-wrapper {
+        @include input-element();
+        @include base-grid();
+        gap: 21px;
+        padding: 42px;
+
+        .form-group {
+            display: flex;
+
+            svg {
+                font-size: 2em;
+                color: $teal;
+                margin-right: 15px;
+            }
+        }
+    }
 }
